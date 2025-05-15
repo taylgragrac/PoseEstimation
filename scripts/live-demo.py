@@ -7,6 +7,7 @@ import time
 import torch
 from vidgear.gears import CamGear
 import numpy as np
+import json
 
 sys.path.insert(1, os.getcwd())
 from SimpleHRNet import SimpleHRNet
