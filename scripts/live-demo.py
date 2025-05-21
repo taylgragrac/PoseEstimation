@@ -92,7 +92,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
         next_person_id = 0
     t_start = time.time()
 
-    frame_count = 1 # CHANGE
+    frame_count = 1
     while True:
         t = time.time()
 
@@ -110,12 +110,17 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                 break
 
         pts = model.predict(frame)
-        # saving in json file
+
+        # saving keypoints in json file
         pts_json = [arr.tolist() for arr in pts]
         filename = 'json_file_outputs/' + 'frame' + str(frame_count) + '.json'
         with open(filename, 'w') as json_file:
           json.dump(pts_json, json_file, indent=4)
-        #print(pts) #CHANGE MADE -GT#
+
+        image_folder = 'frames'
+        image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
+        cv2.imwrite(image_filename, frame)
+        
 
         if not disable_tracking:
             boxes, pts = pts
