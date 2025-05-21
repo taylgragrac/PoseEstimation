@@ -113,7 +113,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
 
         # saving keypoints in json file
         pts_json = [arr.tolist() for arr in pts]
-        filename = 'json_file_outputs/' + 'frame' + str(frame_count) + '.json'
+        filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
         with open(filename, 'w') as json_file:
           json.dump(pts_json, json_file, indent=4)
 
