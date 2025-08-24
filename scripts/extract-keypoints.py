@@ -64,6 +64,15 @@ def main(format, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, image_resol
                 yolo_model_def = yolo_trt_filename
         yolo_class_path = ""
         yolo_weights_path = ""
+    elif yolo_version == 'v8':
+        # YOLOv8 models: n(ano), s(mall), m(edium), l(arge), x(large)
+        if use_tiny_yolo:
+            yolo_model_def = "yolov8n.pt"  # nano
+        else:
+            yolo_model_def = "yolov8m.pt"  # medium
+        # Ultralytics YOLOv8 automatically downloads weights if not present
+        yolo_class_path = ""   # not needed for YOLOv8
+        yolo_weights_path = "" # not needed for YOLOv8
     else:
         raise ValueError('Unsopported YOLO version.')
 
