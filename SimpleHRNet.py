@@ -103,6 +103,8 @@ class SimpleHRNet:
                 from models_.detectors.YOLOv3 import YOLOv3
             elif self.yolo_version == 'v5':
                 from models_.detectors.YOLOv5 import YOLOv5
+            elif self.yolo_version == 'v8':
+                from models_.detectors.YOLOv8 import YOLOv8
             else:
                 raise ValueError('Unsopported YOLO version.')
 
@@ -160,8 +162,11 @@ class SimpleHRNet:
                                        classes=('person',),
                                        max_batch_size=self.max_batch_size,
                                        device=device)
-            else:
+            if self.yolo_version == 'v5':
                 self.detector = YOLOv5(model_def=yolo_model_def,
+                                       device=device)
+            else:
+                self.detector = YOLOv8(model_def=yolo_model_def,
                                        device=device)
 
             self.transform = transforms.Compose([
