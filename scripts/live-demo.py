@@ -120,7 +120,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
 
         pts = model.predict(frame)
 
-        if frame_count % 0 == 5:   
+        if frame_count % 5 == 0:   
                  # saving keypoints in json file (every fifth frame)
                  pts_json = [arr.tolist() for arr in pts]
                  filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
