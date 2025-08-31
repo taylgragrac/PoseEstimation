@@ -120,15 +120,16 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
 
         pts = model.predict(frame)
 
-        # saving keypoints in json file
-        pts_json = [arr.tolist() for arr in pts]
-        filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
-        with open(filename, 'w') as json_file:
-          json.dump(pts_json, json_file, indent=4)
-
-        image_folder = 'frames'
-        image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
-        cv2.imwrite(image_filename, frame)
+        if frame_count % 0 == 5:   
+                 # saving keypoints in json file (every fifth frame)
+                 pts_json = [arr.tolist() for arr in pts]
+                 filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
+                 with open(filename, 'w') as json_file:
+                   json.dump(pts_json, json_file, indent=4)
+         
+                 image_folder = 'frames'
+                 image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
+                 cv2.imwrite(image_filename, frame)
         
         frame_count += 1
 
