@@ -129,8 +129,9 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                                    ys = person[:, 1]
                                    area = (max(xs) - min(xs)) * (max(ys) - min(ys))
                                    areas.append(area)
-                  max_idx = np.argmax(areas)
-                  pts = [pts[max_idx]]
+                                   
+                 max_idx = np.argmax(areas)
+                 pts = [pts[max_idx]]
 
              
                  # saving keypoints in json file (every fifth frame)
