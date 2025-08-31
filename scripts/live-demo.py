@@ -127,7 +127,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                           for person in pts:
                                    xs = person[:, 0]
                                    ys = person[:, 1]
-                                   area = (max(xs) - min(xs)) * (max(ys) - min(ys))
+                                   area = (np.max(xs) - np.min(xs)) * (np.max(ys) - np.min(ys))
                                    areas.append(area)
                                    
                           max_idx = np.argmax(areas)
