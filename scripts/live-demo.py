@@ -122,16 +122,13 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
          
 
         if frame_count % 5 == 0:
-                 if len(pts) > 1:
-                          areas = []
-                          for person in pts:
-                                   xs = person[:, 0]
-                                   ys = person[:, 1]
-                                   area = (np.max(xs) - np.min(xs)) * (np.max(ys) - np.min(ys))
-                                   areas.append(area)
-                                   
+                 if isinstance(pts, list) and len(pts) > 1:
+                          # keep only the skeleton with largest bounding box
+                          areas = [(np.max(p[:,0]) - np.min(p[:,0])) * (np.max(p[:,1]) - np.min(p[:,1])) for p in pts]
                           max_idx = np.argmax(areas)
-                          pts = [pts[max_idx]]
+                          pts = [pts[max_idx]]   # wrap in list so original code works
+                 elif isinstance(pts, list) and len(pts) == 1:
+                          pts = [pts[0]]          # keep as list
 
              
                  # saving keypoints in json file (every fifth frame)
