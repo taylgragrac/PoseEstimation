@@ -119,8 +119,20 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                 break
 
         pts = model.predict(frame)
+         
 
-        if frame_count % 5 == 0:   
+        if frame_count % 5 == 0:
+                 if len(pts) > 1:
+                          areas = []
+                          for person in pts:
+                                   xs = person[:, 0]
+                                   ys = person[:, 1]
+                                   area = (max(xs) - min(xs)) * (max(ys) - min(ys))
+                                   areas.append(area)
+                  max_idx = np.argmax(areas)
+                  pts = [pts[max_idx]]
+
+             
                  # saving keypoints in json file (every fifth frame)
                  pts_json = [arr.tolist() for arr in pts]
                  filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
