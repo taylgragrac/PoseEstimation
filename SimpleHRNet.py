@@ -25,7 +25,7 @@ class SimpleHRNet:
                  model_name='HRNet',
                  resolution=(384, 288),
                  interpolation=cv2.INTER_CUBIC,
-                 multiperson=True,
+                 multiperson=False,
                  return_heatmaps=False,
                  return_bounding_boxes=False,
                  max_batch_size=32,
