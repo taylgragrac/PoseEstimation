@@ -117,21 +117,26 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
             frame = video.read()
             if frame is None:
                 break
-
+        
         pts = model.predict(frame)
+        if len(pts) > 1:
+                 # keep only the skeleton with the higher confidence
+                 avg_confidences = [np.mean(p[:, 2]) for p in pts]
+                 max_idx = np.argmax(avg_confidences)
+                 pts = [pts[max_idx]]   # wrap in list so original code works
+             
+        # saving keypoints in json file (every fifth frame)
+        pts_json = [arr.tolist() for arr in pts]
+        filename = 'json_outputs/' + 'frame' + str(frame_count) + '.json'
+        with open(filename, 'w') as json_file:
+                 json.dump(pts_json, json_file, indent=4)
          
+        image_folder = 'frames'
+        image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
+        cv2.imwrite(image_filename, frame)     
 
+""" uncomment if you want every fifth frame
         if frame_count % 5 == 0:
-                 """
-                 if isinstance(pts, list) and len(pts) > 1:
-                          # keep only the skeleton with the higher confidence
-                          avg_confidences = [np.mean(p[:, 2]) for p in pts]
-                          max_idx = np.argmax(avg_confidences)
-                          pts = [pts[max_idx]]   # wrap in list so original code works
-                 elif isinstance(pts, list) and len(pts) == 1:
-                          pts = [pts[0]]          # keep as list
-                 """ 
-                 
                  if len(pts) > 1:
                           # keep only the skeleton with the higher confidence
                           avg_confidences = [np.mean(p[:, 2]) for p in pts]
@@ -151,7 +156,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                  cv2.imwrite(image_filename, frame)
         
         frame_count += 1
-
+"""
         if not disable_tracking:
             boxes, pts = pts
 
