@@ -155,8 +155,9 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                  image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
                  cv2.imwrite(image_filename, frame)
         
-        frame_count += 1
+        
         """
+        frame_count += 1
         if not disable_tracking:
             boxes, pts = pts
 
