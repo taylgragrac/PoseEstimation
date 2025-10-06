@@ -135,7 +135,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
         image_filename = f'{image_folder}/frame{frame_count}.jpg'  # or .png
         cv2.imwrite(image_filename, frame)     
 
-""" uncomment if you want every fifth frame
+        """ uncomment if you want every fifth frame
         if frame_count % 5 == 0:
                  if len(pts) > 1:
                           # keep only the skeleton with the higher confidence
@@ -143,7 +143,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                           max_idx = np.argmax(avg_confidences)
                           pts = [pts[max_idx]]   # wrap in list so original code works
                   
-
+        
              
                  # saving keypoints in json file (every fifth frame)
                  pts_json = [arr.tolist() for arr in pts]
@@ -156,7 +156,7 @@ def main(camera_id, filename, hrnet_m, hrnet_c, hrnet_j, hrnet_weights, hrnet_jo
                  cv2.imwrite(image_filename, frame)
         
         frame_count += 1
-"""
+        """
         if not disable_tracking:
             boxes, pts = pts
 
